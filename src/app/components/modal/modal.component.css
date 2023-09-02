@@ -1,0 +1,52 @@
+
+.boton-cerrar{
+  position: relative;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.formularioModal{
+   opacity: 1;
+   transition: opacity 1s ease-in-out;
+   position:absolute;
+   z-index: 999;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   margin: auto;
+   height: 70%;
+   width: 75%;
+   max-width: 500px;
+   border: 1px solid gray;
+   border-radius: 8px;
+   box-shadow: 8px 12px 15px;
+   background-color: whitesmoke;
+}
+@media(max-width:576px){
+  .formularioModal{
+    width: 90%;
+    height: 65%;
+  }
+
+}
+
+.formularioModal.ocultar{
+  opacity:0;
+}
+.formularioModal.ocultar:not(:focus){
+  display: none
+}
+
+.pointer{
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+
+.errormsg{
+  position:absolute;
+}
+

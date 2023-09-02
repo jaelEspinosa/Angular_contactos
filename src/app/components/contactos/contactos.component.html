@@ -1,0 +1,50 @@
+<div *ngIf="modal.isVisibleModal" [class.velo]="modal.isVisibleModal"></div>
+<div [class.blur]="modal.isVisibleModal">
+<nav class="navbar navbar-dark bg-dark">
+  <span class="navbar-brand mb-0 h1">PHP con ANGULAR</span>
+</nav>
+<div class="container">
+  <h3 class="text-center my-5">
+    <i class="fas fa-address-book"></i> Agenda de Contactatos
+  </h3>
+  <button
+          (click)="showForm()"
+          class="btn btn-secondary btn-sm mb-5">
+    <i class="fas fa-plus"></i> Agregar Contacto
+  </button>
+  <div class="movil desk">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Image</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Email</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="contactosList">
+      <tr *ngFor="let contacto of contactosList; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <div *ngIf="!contacto.imagen; else elseDiv">
+            <img  class="imgContacto img-thumbnail" [src]='noImage'  alt="no_image">
+          </div>
+          <ng-template #elseDiv>
+            <img  class="imgContacto img-thumbnail" [src]= "contacto.imagen! | domSeguro "  alt="no_image">
+          </ng-template>
+        </td>
+        <td>{{ contacto.nombre }}</td>
+        <td>{{ contacto.telefono }}</td>
+        <td>{{ contacto.email }}</td>
+        <td>
+          <button class="btn btn-sm btn-info mx-1 my-1"><i class="fas fa-edit"></i></button>
+          <button class="btn btn-sm btn-danger mx-1 my-1"><i class="fas fa-trash"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>
