@@ -18,8 +18,8 @@
    right: 0;
    bottom: 0;
    margin: auto;
-   height: 70%;
-   width: 75%;
+   height: 80%;
+   width: 55%;
    max-width: 500px;
    border: 1px solid gray;
    border-radius: 8px;
@@ -29,7 +29,7 @@
 @media(max-width:576px){
   .formularioModal{
     width: 90%;
-    height: 65%;
+    height: 75%;
   }
 
 }

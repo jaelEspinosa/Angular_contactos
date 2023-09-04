@@ -15,6 +15,35 @@
   cursor: pointer;
   box-shadow: 8px 5px 18px gray;
 }
+.imgContactoEdit{
+  width: 75px;
+  height: 75px;
+  transform: scale(var(--escala, 1));
+  transition: 0.3s;
+  border-radius: 8px;
+}
+
+.imgContactoEdit:hover{
+
+  --escala:5;
+  cursor: pointer;
+  box-shadow: 8px 5px 18px gray;
+}
+
+.imgContactoDelete{
+  width: 75px;
+  height: 75px;
+  transform: scale(var(--escala, 1));
+  transition: 0.3s;
+  border-radius: 8px;
+}
+
+.imgContactoDelete:hover{
+
+  --escala:2;
+  cursor: pointer;
+  box-shadow: 8px 5px 18px gray;
+}
 
 .no-visible{
   display: none;

@@ -1,0 +1,31 @@
+
+<div class="formularioModal p-3"
+     [class.ocultar]="!modal.isVisibleModalDelete"
+     [ngClass]="{'animate__animated animate__fadeIn':modal.isVisibleModalDelete}"
+     >
+<h2  style="color:lightcoral;" class="text-center">Eliminando..</h2>
+<h3 style="color:lightslategrey;" class="text-center">Se va eliminar este contacto.</h3>
+
+<div class="h-50 my-4 d-flex flex-column flex-sm-row align-items-center justify-content-around border rounded shadow p-2">
+  <div *ngIf="!contacto?.imagen; else elseDiv">
+    <img  class="imgContacto img-thumbnail" [src]='noImage'  alt="no_image">
+  </div>
+  <ng-template #elseDiv>
+    <img  class="imgContactoDelete" [src]= "contacto!.imagen! | domSeguro "  alt="perfil">
+  </ng-template>
+  <div>
+    <h4>{{contacto?.nombre}}</h4>
+    <h6>{{contacto?.email}}</h6>
+    <h6>{{contacto?.telefono}}</h6>
+  </div>
+</div>
+
+<div class="row p-2">
+  <button (click)="cancelar()" class="col-5 btn btn-outline-info btn-sm">Cancelar</button>
+  <div class="col-2"></div>
+  <button (click)="eliminar()" class="col-5 btn btn-outline-danger btn-sm">Eliminar</button>
+</div>
+
+
+</div>
+

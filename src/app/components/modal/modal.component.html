@@ -2,9 +2,15 @@
      [class.ocultar]="!modal.isVisibleModal"
      [ngClass]="{'animate__animated animate__fadeIn':modal.isVisibleModal}"
      >
-   <h2 class="text-center mb-3 mt-2">Nuevo Contacto</h2>
+   <h2 class="text-center mb-3 mt-2"> {{contacto?.id  ? 'Editar contacto ' : 'Nuevo Contacto'}}</h2>
    <form novalidate [formGroup]="miFormulario" (ngSubmit)="guardar()">
     <div class="form-group mb-4">
+      <div *ngIf="contacto?.imagen">
+        <label for="imagen">
+          <input class="d-none" type="file"  id="imagen" (change)="seleccionarArchivo($event)">
+        <img class="imgContactoEdit rounded float-left mb-3 " [src]= "contacto?.imagen! | domSeguro " alt="foto-perfil" title="Click para cambiar imagen">
+      </label>
+      </div>
       <input
             type="text"
             class="form-control"
@@ -12,6 +18,7 @@
             placeholder="Nombre"
             formControlName="nombre"
             >
+
    <span class="text-danger errormsg" [class.invisible]="!miFormulario.get('nombre')?.invalid || !miFormulario.get('nombre')?.touched">* Mínimo 9 dígitos</span>
 
     </div>
@@ -22,7 +29,8 @@
             placeholder="Email"
             (change)="validarEmail()"
             [class.is-invalid]="miFormulario.get('email')?.invalid && miFormulario.get('email')?.touched"
-            formControlName="email">
+            formControlName="email"
+            >
 
             <span *ngIf="errorEmail" class="text-danger errormsg" [class.invisible]="!miFormulario.get('email')?.invalid || !miFormulario.get('email')?.touched ">* Email con formato no válido</span>
             <span *ngIf="!errorEmail" class="text-danger errormsg" [class.invisible]=" !miFormulario.get('email')?.touched || !miFormulario.get('email')?.invalid" >* Campo obligatorio</span>
@@ -34,22 +42,36 @@
             class="form-control"
             placeholder="Teléfono"
             [class.is-invalid]="miFormulario.get('telefono')?.invalid && miFormulario.get('telefono')?.touched"
-            formControlName="telefono">
+            formControlName="telefono"
+            >
    <span class="text-danger errormsg" [class.invisible]="!miFormulario.get('telefono')?.invalid || !miFormulario.get('telefono')?.touched">* Mínimo 9 dígitos</span>
 
     </div>
+    <div *ngIf="!isImgSelected && !contacto?.imagen; else selected">
     <label for="imagen" class="pointer">
-            <i class="fa fa-user"></i> Agrega tu foto
-            <input class="d-none" type="file"  id="imagen" >
+            <i class="fa fa-user"></i> Agrega Foto de perfil.
+            <input class="d-none" type="file"  id="imagen" (change)="seleccionarArchivo($event)">
     </label>
+   </div>
+   <ng-template #selected>
+
+      <i [class]="!contacto?.imagen ? 'fa-regular fa-id-card' : ''" ></i>{{!contacto?.imagen ? ' Imagen lista ' : null}}
 
 
-
+   </ng-template>
     <div class="row">
-
-      <button (click)="cancelar()" class="btn btn-sm btn-danger boton-cerrar"><i class="fas fa-close"></i> Cancelar</button>
-      <button [class.invisible]="miFormulario.invalid" type="submit" class="btn btn-sm btn-info boton-cerrar"><i class="fas fa-save"></i> Guardar</button>
-
+      <button (click)="cancelar()"
+              class="btn btn-sm btn-danger boton-cerrar">
+              <i class="fas fa-close"></i>
+              Cancelar
+      </button>
+      <button [class.invisible]="miFormulario.invalid && !contacto?.id"
+              type="submit"
+              class="btn btn-sm btn-info boton-cerrar"
+              >
+              <i class="fas fa-save"></i>
+              {{contacto?.id  ? 'Guardar cambios' : 'Guardar'}}
+      </button>
     </div>
    </form>
 

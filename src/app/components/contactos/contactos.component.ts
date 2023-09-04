@@ -13,6 +13,11 @@ export class ContactosComponent implements OnInit {
 
   public contactosList : Contactos[] = [];
   public noImage = '../../../assets/img/no_image.jpg'
+  public contacto: Contactos = {
+        nombre:'',
+        telefono: '',
+        email: ''
+  }
 
 
   constructor(private contactos:ContactosService,
@@ -32,17 +37,29 @@ export class ContactosComponent implements OnInit {
     this.obtenerContactos();
 
     // suscripcion a la notificacion de actualizacion
-  this.sharedService.actualizarListaContactos$.subscribe(()=>{
+    this.sharedService.actualizarListaContactos$.subscribe(()=>{
     this.obtenerContactos(); // Actualizamos la lista
   })
 
   }
 
-  showForm(){
+  agregarContacto(){
+    this.contacto = {
+      nombre:'',
+      telefono: '',
+      email: '',
+    }
     this.modal.tooggleModal();
 
   }
-
+  editarContacto(contacto:Contactos) {
+    this.contacto = {...contacto};
+    this.modal.tooggleModal()
+  }
+ eliminarContacto(contacto:Contactos) {
+  this.contacto = {...contacto}
+  this.modal.tooggleModalDelete()
+ }
 }
 
 
