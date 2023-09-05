@@ -6,10 +6,11 @@
    <form novalidate [formGroup]="miFormulario" (ngSubmit)="guardar()">
 
     <div class="form-group mb-1">
-      <div *ngIf="!contacto?.imagen && !imageTemp">
+      <div style="position: relative; margin-top: 30px;" *ngIf="!contacto?.imagen && !imageTemp">
         <label for="imagen">
           <input class="d-none" type="file"  id="imagen" (change)="seleccionarArchivo($event)">
         <img class="imgContactoEdit rounded float-left mb-3 " src= "../../../assets/img/no_image_user.jpg" alt="foto-perfil" title="Click para cambiar imagen">
+        <i class="fa fa-edit text-info icono"></i>
       </label>
       </div>
     </div>
@@ -17,19 +18,21 @@
 
 
     <div class="form-group mb-1">
-      <div *ngIf="contacto?.imagen && !imageTemp">
+      <div style="position: relative; margin-top: 30px;" *ngIf="contacto?.imagen && !imageTemp">
         <label for="imagen">
           <input class="d-none" type="file"  id="imagen" (change)="seleccionarArchivo($event)">
-        <img class="imgContactoEdit rounded float-left mb-3 " [src]= "contacto?.imagen! | domSeguro " alt="foto-perfil" title="Click para cambiar imagen">
-      </label>
+          <img class="imgContactoEdit rounded float-left mb-3 " [src]= "contacto?.imagen! | domSeguro " alt="foto-perfil" >
+          <i class="fa fa-edit text-info icono"></i>
+        </label>
       </div>
     </div>
 
       <div class="form-group mb-1">
-        <div *ngIf="imageTemp">
+        <div style="position: relative; margin-top: 30px;" *ngIf="imageTemp">
           <label for="imagen">
             <input class="d-none" type="file"  id="imagen" (change)="seleccionarArchivo($event)">
           <img class="imgContactoEdit rounded float-left mb-3 " [src]= "imageTempUrl! | domSeguroPrev" alt="foto-perfil" title="Click para cambiar imagen">
+          <i class="fa fa-edit text-info icono"></i>
         </label>
         </div>
       </div>

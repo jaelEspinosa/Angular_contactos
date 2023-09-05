@@ -49,4 +49,9 @@
 .errormsg{
   position:absolute;
 }
+.icono{
 
+  position: relative;
+  bottom: 25px;
+  left: -15px;
+}
