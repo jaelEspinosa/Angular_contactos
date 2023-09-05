@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './components/modal/modal.component';
 import { DomSeguroPipe } from './pipes/dom-seguro.pipe';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
+import { DomSeguroPrevPipe } from './pipes/dom-seguro-prev.pipe';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ModalDeleteComponent } from './components/modal-delete/modal-delete.com
     ContactosComponent,
     ModalComponent,
     DomSeguroPipe,
-    ModalDeleteComponent
+    ModalDeleteComponent,
+    DomSeguroPrevPipe
   ],
   imports: [
     BrowserModule,

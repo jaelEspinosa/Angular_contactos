@@ -12,7 +12,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class ContactosComponent implements OnInit {
 
   public contactosList : Contactos[] = [];
-  public noImage = '../../../assets/img/no_image.jpg'
+  public noImage = '../../../assets/img/no_image_user.jpg'
   public contacto: Contactos = {
         nombre:'',
         telefono: '',
@@ -43,7 +43,7 @@ export class ContactosComponent implements OnInit {
 
   }
 
-  agregarContacto(){
+ agregarContacto(){
     this.contacto = {
       nombre:'',
       telefono: '',
@@ -52,7 +52,7 @@ export class ContactosComponent implements OnInit {
     this.modal.tooggleModal();
 
   }
-  editarContacto(contacto:Contactos) {
+ editarContacto(contacto:Contactos) {
     this.contacto = {...contacto};
     this.modal.tooggleModal()
   }

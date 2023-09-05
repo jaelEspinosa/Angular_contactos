@@ -36,6 +36,16 @@ export class ContactosService {
     return this.http.put(url, formData, { headers})
   }
 
+  deleteContacto ( id:string ){
+    const url = `${this.URLbase}/index.php?id=${id}`;
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+  });
+
+    return this.http.delete(url, { headers})
+
+  }
+
   uploadfile(archivo:UpLoadImg){
     if(archivo.nombreArchivo === '' && archivo.base64textString === null){
       return

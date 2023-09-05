@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactosService } from 'src/app/services/contactos.service';
 import Swal from 'sweetalert2'
@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent implements AfterViewInit  {
+export class ModalComponent implements AfterViewInit, OnDestroy  {
 
   @Input() contacto?:Contactos;
 
@@ -29,6 +29,8 @@ export class ModalComponent implements AfterViewInit  {
   public archivo: UpLoadImg;
   public uuid = uuidv4();
   public formulario!: Contactos;
+  public imageTemp: File | null = null;
+  public imageTempUrl: string | null = null;
 
   _handleReaderLoaded(readerEvent: any){
     const binaryString = readerEvent.target.result;
@@ -49,6 +51,12 @@ export class ModalComponent implements AfterViewInit  {
                 }
 
                 }
+  ngOnDestroy() {
+    // Liberar recursos asociados con la URL de la vista previa
+    if (this.imageTempUrl) {
+      URL.revokeObjectURL(this.imageTempUrl);
+    }
+  }
 
   ngAfterViewInit() {
      console.log('el contacto a editar es: ', this.contacto)
@@ -81,6 +89,9 @@ cancelar() {
   this.modal.tooggleModal();
   this.miFormulario.reset();
   this.fileForDelete = '';
+  this.imageTemp = null;
+  this.imageTempUrl = null
+
 }
 
 seleccionarArchivo(e:any){
@@ -88,17 +99,23 @@ seleccionarArchivo(e:any){
    if(this.contacto?.imagen){
     this.fileForDelete = this.contacto.imagen;
    }
-  const files = e.target.files;
-  const file = files[0];
+
+  const file = e.target.files[0];
   this.archivo.nombreArchivo = `${this.uuid}_${file.name}`
 
 
-  if (files && file){
+  if (file){
     const reader= new FileReader();
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsBinaryString(file);
-    this.isImgSelected = true
+    this.isImgSelected = true;
 
+    // creamos url para la vista previa
+    this.imageTemp = file;
+    this.imageTempUrl = URL.createObjectURL(file)
+  }else{
+    this.imageTemp = null;
+    this.imageTempUrl = null;
   }
 
 }
@@ -118,10 +135,11 @@ guardar(){
       nombre: this.miFormulario.value.nombre,
       email: this.miFormulario.value.email,
       telefono: this.miFormulario.value.telefono,
-      imagen: this.archivo.nombreArchivo || this.contacto?.imagen
+      imagen: this.archivo.nombreArchivo
     }
     if(this.contacto?.id){
       console.log('estamos editando el contacto: ', this.contacto.nombre);
+      this.formulario.imagen = this.archivo.nombreArchivo || this.contacto.imagen
       this.contactService.updateContacto(this.formulario, this.contacto.id)
         .subscribe({
           next: (data) => {
@@ -151,9 +169,6 @@ guardar(){
           }
 
         })
-
-
-
 
       return;
     }

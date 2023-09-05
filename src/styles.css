@@ -25,7 +25,7 @@
 
 .imgContactoEdit:hover{
 
-  --escala:5;
+  --escala:2;
   cursor: pointer;
   box-shadow: 8px 5px 18px gray;
 }

@@ -4,13 +4,37 @@
      >
    <h2 class="text-center mb-3 mt-2"> {{contacto?.id  ? 'Editar contacto ' : 'Nuevo Contacto'}}</h2>
    <form novalidate [formGroup]="miFormulario" (ngSubmit)="guardar()">
-    <div class="form-group mb-4">
-      <div *ngIf="contacto?.imagen">
+
+    <div class="form-group mb-1">
+      <div *ngIf="!contacto?.imagen && !imageTemp">
+        <label for="imagen">
+          <input class="d-none" type="file"  id="imagen" (change)="seleccionarArchivo($event)">
+        <img class="imgContactoEdit rounded float-left mb-3 " src= "../../../assets/img/no_image_user.jpg" alt="foto-perfil" title="Click para cambiar imagen">
+      </label>
+      </div>
+    </div>
+
+
+
+    <div class="form-group mb-1">
+      <div *ngIf="contacto?.imagen && !imageTemp">
         <label for="imagen">
           <input class="d-none" type="file"  id="imagen" (change)="seleccionarArchivo($event)">
         <img class="imgContactoEdit rounded float-left mb-3 " [src]= "contacto?.imagen! | domSeguro " alt="foto-perfil" title="Click para cambiar imagen">
       </label>
       </div>
+    </div>
+
+      <div class="form-group mb-1">
+        <div *ngIf="imageTemp">
+          <label for="imagen">
+            <input class="d-none" type="file"  id="imagen" (change)="seleccionarArchivo($event)">
+          <img class="imgContactoEdit rounded float-left mb-3 " [src]= "imageTempUrl! | domSeguroPrev" alt="foto-perfil" title="Click para cambiar imagen">
+        </label>
+        </div>
+      </div>
+
+      <div class="form-group mb-4">
       <input
             type="text"
             class="form-control"
@@ -47,18 +71,13 @@
    <span class="text-danger errormsg" [class.invisible]="!miFormulario.get('telefono')?.invalid || !miFormulario.get('telefono')?.touched">* Mínimo 9 dígitos</span>
 
     </div>
-    <div *ngIf="!isImgSelected && !contacto?.imagen; else selected">
+    <!-- <div *ngIf="!isImgSelected && !contacto?.imagen">
     <label for="imagen" class="pointer">
             <i class="fa fa-user"></i> Agrega Foto de perfil.
             <input class="d-none" type="file"  id="imagen" (change)="seleccionarArchivo($event)">
     </label>
-   </div>
-   <ng-template #selected>
+   </div> -->
 
-      <i [class]="!contacto?.imagen ? 'fa-regular fa-id-card' : ''" ></i>{{!contacto?.imagen ? ' Imagen lista ' : null}}
-
-
-   </ng-template>
     <div class="row">
       <button (click)="cancelar()"
               class="btn btn-sm btn-danger boton-cerrar">
